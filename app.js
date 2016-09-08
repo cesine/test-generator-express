@@ -36,7 +36,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/v1/users', users);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,7 +64,17 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
+    err.status = err.status || 500;
+
+    res.status(err.status);
+    if (req.url.indexOf('/v1') > -1) {
+        return res.json({
+          message: err.message,
+          status: err.status,
+          error: err
+      });
+    }
+
     res.render('error', {
         message: err.message,
         error: {},
