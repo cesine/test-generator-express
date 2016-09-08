@@ -11,25 +11,6 @@ describe('/', function() {
   });
 
   describe('errors', function() {
-    it('should handle api routes which are not found', function(done) {
-      supertest(service)
-        .get('/v1/notexistant')
-        .expect('Content-Type', 'application/json; charset=utf-8')
-        .end(function(err, res) {
-          if (err) {
-            return done(err);
-          }
-
-          expect(res.body).to.deep.equal({
-            error: res.body.error,
-            message: 'Not Found',
-            status: 404
-          });
-
-          done();
-        });
-    });
-
     it('should handle pages which are not found', function(done) {
       supertest(service)
         .get('/notexistant')

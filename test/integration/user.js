@@ -6,7 +6,7 @@ var supertest = require('supertest');
 
 var api = require('./../../');
 
-describe('/v1/users', function() {
+describe('/users', function() {
     var user = {
         givenName: 'Anony',
         familyName: 'Mouse'
@@ -15,7 +15,7 @@ describe('/v1/users', function() {
     describe('POST', function() {
         it('should create', function(done) {
             supertest(api)
-                .post('/v1/users')
+                .post('/users')
                 .send(user)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
@@ -39,7 +39,7 @@ describe('/v1/users', function() {
     describe('GET', function() {
         it('should list users', function(done) {
             supertest(api)
-                .get('/v1/users')
+                .get('/users')
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
                     if (err) {
@@ -56,7 +56,7 @@ describe('/v1/users', function() {
 
         it('should get a user', function(done) {
             supertest(api)
-                .get('/v1/users/' + user.id)
+                .get('/users/' + user.id)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
                     if (err) {
@@ -75,7 +75,7 @@ describe('/v1/users', function() {
             user.description = 'A sample user';
 
             supertest(api)
-                .put('/v1/users/' + user.id)
+                .put('/users/' + user.id)
                 .send(user)
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .end(function(err, res) {
